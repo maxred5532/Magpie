@@ -1006,6 +1006,33 @@ bool OverlayDrawer::_DrawToolbar(uint32_t fps, int& itemId) noexcept {
 			return FormatToolbarTooltip(_GetResourceString(name), shortcut);
 		};
 		const std::string pinStr = tooltip(L"Overlay_Toolbar_Pin", shortcuts.pin);
+		if (windowed) {
+			// Pressing the handle starts a native window move.
+			ImGui::SetCursorPosY((contentTop + 3) * toolbarScale);
+			ImGui::PushFont(_fontIcons);
+			ImGui::Button(IconLabel(OverlayHelper::SegoeIcons::Move).c_str(),
+				{ 24.0f * toolbarScale, 24.0f * toolbarScale });
+			recordButton();
+			const bool moveHovered = ImGui::IsItemHovered();
+			if (moveHovered || ImGui::IsItemActive()) {
+				_isCursorOnCaptionArea = false;
+				_isToolbarItemActive = true;
+				ImGui::SetMouseCursor(ImGuiMouseCursor_ResizeAll);
+			}
+			if (ImGui::IsItemActivated() && !_imguiImpl.FrameInputCanceled()) {
+				POINT cursorPos;
+				if (GetCursorPos(&cursorPos)) {
+					ReleaseCapture();
+					PostMessage(ScalingWindow::Get().Handle(), WM_NCLBUTTONDOWN, HTCAPTION,
+						MAKELPARAM(cursorPos.x, cursorPos.y));
+				}
+			}
+			ImGui::PopFont();
+			if (moveHovered) {
+				_imguiImpl.Tooltip(_GetResourceString(L"Overlay_Toolbar_MoveWindow").c_str(), toolbarScale);
+			}
+			ImGui::SameLine();
+		}
 		drawToggleButton(_isToolbarPinned, OverlayHelper::SegoeIcons::Pinned, pinStr.c_str());
 		ImGui::SameLine();
 		const std::string profilerStr = tooltip(L"Overlay_Toolbar_Profiler", shortcuts.profiler);
