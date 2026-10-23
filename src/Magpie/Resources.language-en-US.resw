@@ -1056,6 +1056,9 @@
   <data name="Overlay_Toolbar_Minimize" xml:space="preserve">
     <value>Minimize</value>
   </data>
+  <data name="Overlay_Toolbar_MoveWindow" xml:space="preserve">
+    <value>Drag to move window</value>
+  </data>
   <data name="Profile_Cursor_AutoHide.Header" xml:space="preserve">
     <value>Auto-hide cursor when idle</value>
   </data>

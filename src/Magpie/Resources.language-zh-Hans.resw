@@ -1056,6 +1056,9 @@
   <data name="Overlay_Toolbar_Minimize" xml:space="preserve">
     <value>最小化</value>
   </data>
+  <data name="Overlay_Toolbar_MoveWindow" xml:space="preserve">
+    <value>拖动以移动窗口</value>
+  </data>
   <data name="Profile_Cursor_AutoHide.Header" xml:space="preserve">
     <value>光标静止时自动隐藏</value>
   </data>
