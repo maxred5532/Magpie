@@ -176,7 +176,7 @@ if (!$commonGitDirectory) {
 }
 $primarySourceRoot = Split-Path ([System.IO.Path]::GetFullPath($commonGitDirectory)) -Parent
 $workspaceRoot = Split-Path $primarySourceRoot -Parent
-$releaseRoot = [System.IO.Path]::GetFullPath((Join-Path $workspaceRoot "release"))
+$releaseRoot = [System.IO.Path]::GetFullPath((Join-Path $primarySourceRoot "release"))
 
 $commit = Invoke-Git @("rev-parse", "HEAD")
 $shortCommit = Invoke-Git @("rev-parse", "--short=12", "HEAD")
